@@ -112,4 +112,22 @@ class UserRegistrationTest extends TestCase
             ]
         ]);
     }
+
+    public function test_registration_and_login_are_both_ok()
+    {
+        $this->test_registration_is_ok();
+
+        $body = [
+            'email' => 'test@test.com',
+            'password' => 'password'
+        ];
+        $response = $this->post('/api/login', $body, ['Accept' => 'application/json']);
+
+        $response->assertStatus(200);
+        $response->assertJsonStructure([
+            "user" => [
+                '*' => array_keys((new User())->toArray())
+            ]
+        ]);
+    }
 }
