@@ -11,7 +11,7 @@ class UserController extends Controller
     public function register(Request $request) {
         $fields = $request->validate([
             'name' => 'required|string',
-            'email' => 'required|string|unique:users,email',
+            'email' => 'required|email|unique:users,email',
             'password' => 'required|string|confirmed'
         ]);
 
@@ -30,7 +30,7 @@ class UserController extends Controller
 
     public function login(Request $request) {
         $fields = $request->validate([
-            'email' => 'required|string',
+            'email' => 'required|email',
             'password' => 'required|string'
         ]);
 
